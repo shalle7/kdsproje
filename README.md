@@ -54,12 +54,3 @@ utils/: TOPSIS gibi yardımcı matematiksel algoritmalar.
 
 📄 Lisans
 Bu proje eğitim amaçlı geliştirilmiştir.
-
-
-### Nasıl Eklenir?
-1. GitHub'da projenin ana sayfasına git.
-2. **"Add file"** > **"Create new file"** butonuna bas.
-3. Dosya adını `README.md` yap.
-4. Yukarıdaki kodu yapıştır ve **"Commit changes"** diyerek kaydet.
-
-Artık projenin ana sayfasında ne işe yaradığı ve nasıl çalıştırılacağı çok net bir şekilde görünecek! Başka bir isteğin var mı?
