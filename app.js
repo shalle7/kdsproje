@@ -1,7 +1,7 @@
+require("dotenv").config(); // En üstte kalmalı
 const express = require("express");
 const app = express();
 const cors = require("cors");
-require("dotenv").config();
 const path = require("path");
 const session = require("express-session");
 
@@ -13,10 +13,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Session
+// Session - Secret bilgisini .env'den alır, yoksa varsayılanı kullanır
 app.use(
     session({
-        secret: "kds_secret_key",
+        secret: process.env.JWT_SECRET || "kds_default_secret_key",
         resave: false,
         saveUninitialized: true,
     })
@@ -26,20 +26,17 @@ app.use(
 const authRoute = require("./router/authRoute");
 const sehirRouter = require("./router/sehirRouter");
 const ilceRouter = require("./router/ilceRouter");
-const dashboardRouter = require("./router/dashboardRouter");   
-const tahminlemeRouter = require("./router/tahminlemeRouter"); // <-- TAHMİNLEME IMPORT
+const dashboardRouter = require("./router/dashboardRouter");   
+const tahminlemeRouter = require("./router/tahminlemeRouter");
 
 // ------------------- ROUTER'LAR -------------------
-// TÜM API ROTELARI BURADA TANIMLANMALI
-// (express.static'ten önce olmalıdır!)
 app.use("/api", authRoute);
 app.use("/api/sehir", sehirRouter);
 app.use("/api/ilce", ilceRouter);
-app.use("/api/dashboard", dashboardRouter);   
-app.use("/api/tahminleme", tahminlemeRouter); // <-- TAHMİNLEME KULLANIMI
+app.use("/api/dashboard", dashboardRouter);   
+app.use("/api/tahminleme", tahminlemeRouter);
 
 // ------------------- STATIC FILES -------------------
-// API Rotları tanımlandıktan sonra statik dosyalar sunulur.
 app.use(express.static("public"));
 
 // ------------------- LOGIN GUARD -------------------
@@ -57,12 +54,13 @@ app.get("/dashboard.html", loginGuard, (req, res) => {
     res.sendFile(path.join(__dirname, "public", "dashboard.html"));
 });
 
-// tahminleme.html sayfasını loginGuard ile koruma altına al
 app.get("/tahminleme.html", loginGuard, (req, res) => {
     res.sendFile(path.join(__dirname, "public", "tahminleme.html"));
 });
 
 // ------------------- SERVER ------------------------
-app.listen(3000, () => {
-    console.log("Server çalışıyor: http://localhost:3000");
+// Portu .env dosyasından alır (PORT=3000 gibi)
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server çalışıyor: http://localhost:${PORT}`);
 });
