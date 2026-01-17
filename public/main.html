@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>TOPSIS Şehir Sıralaması</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+    <!-- SOL MENU -->
+    <div class="sidebar">
+        <h2>KDS Proje</h2>
+
+        <a href="main.html">🏠 Ana Sayfa</a>
+        <a href="topsis.html">📊 TOPSIS Sıralama</a>
+        <a href="#">📁 Veriler</a>
+        <a href="#">⚙️ Ayarlar</a>
+    </div>
+
+    <!-- ANA İÇERİK -->
+    <div class="content">
+
+        <h1>TOPSIS Şehir Sıralaması</h1>
+
+        <div id="cards"></div>
+
+    </div>
+
+    <script>
+        async function load() {
+            const res = await fetch("http://localhost:3000/api/topsis");
+            const data = await res.json();
+
+            const div = document.getElementById("cards");
+            div.innerHTML = "";
+
+            data.forEach((city, i) => {
+                div.innerHTML += `
+                    <div class="card">
+                        <span class="rank">#${i + 1}</span>
+                        <h2>${city.sehir}</h2>
+                        <p>${city.skor.toFixed(4)}</p>
+                    </div>
+                `;
+            });
+        }
+
+        load();
+    </script>
+
+</body>
+</html>

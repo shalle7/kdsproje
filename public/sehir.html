@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <title>ModaTrend – Şehir TOPSIS Skorları</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <link rel="stylesheet" href="./css/sidebar.css">
+
+    <style>
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+
+<body class="bg-slate-100 min-h-screen font-sans text-slate-900">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-title">ModaTrend KDS</div>
+        <nav class="mt-4 space-y-1 px-2 text-sm">
+
+            <a href="/dashboard.html" class="menu-item">Dashboard</a>
+            <a href="/sehir.html" class="menu-item active">Şehir Skorları</a>
+            <a href="/topsis.html" class="menu-item">İlçe Skor Sıralaması</a>
+            <a href="/tahminleme.html" class="menu-item">Tahminleme</a>
+
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="ml-56 p-6 max-w-screen-xl">
+
+        <!-- HEADER (SADECE BURASI DÜZELTİLDİ) -->
+        <header class="mb-6">
+
+            <p class="text-sm uppercase tracking-[0.35em] font-bold
+                      bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500
+                      bg-clip-text text-transparent">
+                MODATREND
+            </p>
+
+            <h1 class="text-xl md:text-2xl font-semibold text-slate-800">
+                Şehir TOPSIS Analizi
+            </h1>
+
+            <p class="text-xs md:text-sm text-slate-500">
+                Şubesi olan ve olmayan şehirlerin online & fiziksel skor analizi.
+            </p>
+
+        </header>
+
+        <!-- ==================== ŞUBESİ OLAN ŞEHİRLER ==================== -->
+        <section class="mb-14">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                <div class="card">
+                    <h2 class="text-sm font-semibold text-slate-800">Şubesi OLAN Şehirler</h2>
+                    <p class="text-xs text-slate-500 mb-2">TOPSIS skor sıralaması</p>
+
+                    <table class="w-full text-xs">
+                        <thead class="border-b">
+                            <tr class="text-left text-slate-500">
+                                <th>Sıra</th>
+                                <th>Şehir</th>
+                                <th class="text-right">Skor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="city-table-body" class="text-[12px]"></tbody>
+                    </table>
+                </div>
+
+                <div class="card flex items-center justify-center">
+                    <canvas id="cityChart" width="220" height="220"></canvas>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== ŞUBESİ OLMAYAN ŞEHİRLER ==================== -->
+        <section>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                <div class="card">
+                    <h2 class="text-sm font-semibold text-slate-800">Şubesi OLMAYAN Şehirler</h2>
+                    <p class="text-xs text-slate-500 mb-2">
+                        Online satış + nüfus + gelir TOPSIS skorları
+                    </p>
+
+                    <table class="w-full text-xs">
+                        <thead class="border-b">
+                            <tr class="text-left text-slate-500">
+                                <th>Sıra</th>
+                                <th>Şehir</th>
+                                <th class="text-right">Skor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="not-branch-table-body" class="text-[12px]"></tbody>
+                    </table>
+                </div>
+
+                <div class="card flex items-center justify-center">
+                    <canvas id="noBranchChart" width="220" height="220"></canvas>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <script src="/js/sehir.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>ModaTrend – Veri Seti</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <link rel="stylesheet" href="./css/sidebar.css">
+</head>
+
+<body class="bg-slate-100 min-h-screen font-sans text-slate-900">
+
+    <!-- SIDEBAR (GÜNCELLENDİ — TAHMİNLEME EKLENDİ) -->
+    <aside class="sidebar">
+
+        <div class="sidebar-title">
+            ModaTrend KDS
+        </div>
+
+        <nav class="mt-4 space-y-1 px-2 text-sm">
+
+            <a href="/dashboard.html" class="menu-item">
+                📊 Dashboard
+            </a>
+
+            <a href="/sehir.html" class="menu-item">
+                🏙 Şehir Skorları
+            </a>
+
+            <a href="/topsis.html" class="menu-item">
+                📌 İlçe Skor Sıralaması
+            </a>
+
+            <a href="/veri.html" class="menu-item active">
+                🗂 Veri Seti
+            </a>
+
+            <!-- ⭐ YENİ MENÜ -->
+            <a href="/tahminleme.html" class="menu-item">
+                📈 Tahminleme
+            </a>
+
+            <a class="menu-item disabled">
+                ⚙ Ayarlar (Yakında)
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="ml-56 p-6 max-w-6xl">
+
+        <!-- TOP BAR -->
+        <header class="mb-6">
+            <p class="text-xs uppercase tracking-[0.25em] text-slate-400">ModaTrend</p>
+            <h1 class="text-xl md:text-2xl font-semibold text-slate-800">
+                Veri Seti – İlçe & Şehir Bilgileri
+            </h1>
+            <p class="text-xs md:text-sm text-slate-500">
+                Tüm ilçeler + şehirler tek tabloda listelenir. Arama & filtre aktif.
+            </p>
+        </header>
+
+        <!-- SEARCH + FILTER -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+
+            <input 
+                id="searchInput"
+                type="text" 
+                placeholder="Ara: ilçe, şehir..."
+                class="w-full md:w-1/3 px-4 py-2 border rounded-lg shadow-sm
+                       focus:ring-2 focus:ring-emerald-400 focus:outline-none"
+            >
+
+            <select id="filterSelect"
+                class="px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-emerald-400">
+                <option value="all">Tüm Veriler</option>
+                <option value="sehir">Sadece Şehirler</option>
+                <option value="ilce">Sadece İlçeler</option>
+            </select>
+        </div>
+
+        <!-- TABLE -->
+        <div class="card p-4">
+            <table class="w-full text-sm">
+                <thead>
+                    <tr class="border-b text-slate-500 text-xs uppercase">
+                        <th class="py-2 text-left">ID</th>
+                        <th class="py-2 text-left">Ad</th>
+                        <th class="py-2 text-left">Tür</th>
+                        <th class="py-2 text-left">Nüfus</th>
+                        <th class="py-2 text-left">Gelir</th>
+                        <th class="py-2 text-left">Kira</th>
+                        <th class="py-2 text-left">Ulaşım</th>
+                        <th class="py-2 text-left">Rakip</th>
+                    </tr>
+                </thead>
+
+                <tbody id="dataTable" class="text-slate-700 divide-y"></tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <!-- JS -->
+    <script>
+    async function loadData() {
+        const ilceRes = await fetch("/api/ilceler");
+        const ilceler = await ilceRes.json();
+
+        const sehirRes = await fetch("/api/sehir");
+        const sehirler = await sehirRes.json();
+
+        ilceler.forEach(i => i.type = "ilce");
+        sehirler.forEach(s => s.type = "sehir");
+
+        return [...ilceler, ...sehirler];
+    }
+
+    function renderTable(data) {
+        const tbody = document.getElementById("dataTable");
+        tbody.innerHTML = "";
+
+        data.forEach(d => {
+            tbody.innerHTML += `
+                <tr class="hover:bg-slate-50">
+                    <td class="py-2">${d.id}</td>
+                    <td class="py-2 font-medium">${d.ilce || d.sehir}</td>
+                    <td class="py-2">
+                        <span class="px-2 py-1 rounded text-xs 
+                            ${d.type === 'sehir' ? 'bg-blue-100 text-blue-700' : 'bg-emerald-100 text-emerald-700'}">
+                            ${d.type === 'sehir' ? 'Şehir' : 'İlçe'}
+                        </span>
+                    </td>
+                    <td>${d.nufus}</td>
+                    <td>${d.gelir}</td>
+                    <td>${d.kira}</td>
+                    <td>${d.ulasim}</td>
+                    <td>${d.rakip}</td>
+                </tr>
+            `;
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", async () => {
+        let allData = await loadData();
+        renderTable(allData);
+
+        document.getElementById("searchInput").addEventListener("keyup", e => {
+            const keyword = e.target.value.toLowerCase();
+
+            const filtered = allData.filter(d =>
+                (d.ilce || d.sehir).toLowerCase().includes(keyword)
+            );
+            renderTable(filtered);
+        });
+
+        document.getElementById("filterSelect").addEventListener("change", e => {
+            const val = e.target.value;
+
+            if (val === "all") return renderTable(allData);
+
+            const filtered = allData.filter(d => d.type === val);
+            renderTable(filtered);
+        });
+    });
+    </script>
+
+</body>
+</html>

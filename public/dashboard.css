@@ -1,0 +1,105 @@
+/* --------------------------------------------- */
+/* GLOBAL – Modern UI Görünümü */
+/* --------------------------------------------- */
+
+body {
+    -webkit-font-smoothing: antialiased;
+    background: #f1f5f9; /* slate-100 */
+    font-family: 'Inter', sans-serif;
+    color: #0f172a; /* slate-900 */
+}
+
+/* Kart gölgeleri biraz daha yumuşak */
+.card {
+    background: white;
+    border-radius: 1rem;
+    border: 1px solid #e2e8f0; /* slate-200 */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+}
+
+/* --------------------------------------------- */
+/* TABLO SCROLL – İnce modern scrollbar */
+/* --------------------------------------------- */
+
+.custom-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+.custom-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.6); /* slate-400 */
+    border-radius: 999px;
+}
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(100, 116, 139, 0.9); /* slate-500 */
+}
+
+/* --------------------------------------------- */
+/* TABLO STİLLERİ */
+/* --------------------------------------------- */
+
+table thead tr {
+    background: white;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+table tbody tr:nth-child(even) {
+    background: #f8fafc; /* slate-50 */
+}
+
+table tbody tr:hover {
+    background: #eef2ff; /* indigo-50 */
+    transition: background 0.2s ease;
+}
+
+/* En iyi ilçe satırı */
+.best-row {
+    background: #ecfdf5 !important; /* emerald-50 */
+}
+
+/* --------------------------------------------- */
+/* GRAFİK ALANI */
+/* --------------------------------------------- */
+
+canvas {
+    max-width: 100%;
+}
+
+/* Chart.js tooltip rengi */
+.chartjs-tooltip {
+    background: rgba(15, 23, 42, 0.9) !important;  /* slate-900 */
+    color: white !important;
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 12px;
+}
+
+/* --------------------------------------------- */
+/* KART BAŞLIKLARI */
+/* --------------------------------------------- */
+
+.section-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1e293b; /* slate-800 */
+}
+
+.section-desc {
+    font-size: 0.75rem;
+    color: #64748b; /* slate-500 */
+}
+
+/* --------------------------------------------- */
+/* KİRA – GELİR GRAFİĞİ ÖZEL DOKUNUŞ */
+/* --------------------------------------------- */
+
+#kiraGelirChart {
+    background: white;
+    border-radius: 1rem;
+    padding: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0; /* slate-200 */
+}

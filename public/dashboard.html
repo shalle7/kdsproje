@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <title>ModaTrend – Dashboard</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <link rel="stylesheet" href="./css/sidebar.css">
+</head>
+
+<body class="bg-slate-100 min-h-screen font-sans text-slate-900">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-title">ModaTrend KDS</div>
+
+        <nav class="mt-4 px-1 text-sm">
+            <a href="/dashboard.html" class="menu-item active">Dashboard</a>
+            <a href="/sehir.html" class="menu-item">Şehir Skorları</a>
+            <a href="/topsis.html" class="menu-item">İlçe Skor Sıralaması</a>
+            <a href="/tahminleme.html" class="menu-item">Tahminleme</a>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="ml-[230px] p-8">
+
+        <!-- HEADER (SADECE BURASI DÜZELTİLDİ) -->
+        <header class="pb-4 border-b border-slate-200">
+
+            <p class="text-sm uppercase tracking-[0.35em] font-bold
+                      bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500
+                      bg-clip-text text-transparent">
+                MODATREND
+            </p>
+
+            <h1 class="text-2xl md:text-3xl font-bold text-slate-800 mt-1">
+                Satış ve Ürün Analiz
+            </h1>
+
+            <p class="text-xs md:text-sm text-slate-500">
+                Şubeler, ürünler ve satışlar için anlık analiz paneli.
+            </p>
+
+        </header>
+
+        <section class="mt-8 space-y-10">
+
+            <!-- ÜST KARTLAR -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+
+                <div class="p-6 rounded-xl shadow-lg bg-gradient-to-r from-emerald-500 to-green-600 text-white">
+                    <div class="text-sm opacity-80">TOPLAM ŞUBE SAYISI</div>
+                    <div id="subeSayisi" class="text-4xl font-bold mt-2">0</div>
+                </div>
+
+                <div class="p-6 rounded-xl shadow-lg bg-gradient-to-r from-blue-500 to-blue-700 text-white">
+                    <div class="text-sm opacity-80">TOPLAM SATIŞ SAYISI</div>
+                    <div id="satisSayisi" class="text-4xl font-bold mt-2">0</div>
+                </div>
+
+                <div class="p-6 rounded-xl shadow-lg bg-white flex flex-col justify-center">
+                    <div class="text-sm text-slate-500 mb-1">Geçen Yıla Göre Değişim (YoY)</div>
+                    <div class="flex items-center gap-3">
+                        <span id="yoyIcon" class="text-3xl font-bold text-green-600">▲</span>
+                        <span id="yoyValue" class="text-3xl font-bold text-green-600">0%</span>
+                    </div>
+                </div>
+
+                <div class="p-6 rounded-xl shadow-lg bg-gradient-to-r from-purple-500 to-purple-700 text-white">
+                    <div class="text-sm opacity-80">TOPLAM ÜRÜN SAYISI</div>
+                    <div id="urunSayisi" class="text-4xl font-bold mt-2">0</div>
+                </div>
+
+            </div>
+
+            <!-- 2 ANA GRAFİK -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+
+                <div class="card p-5">
+                    <p class="section-title mb-3">Ürün Kategorilerine Göre Satışlar</p>
+                    <canvas id="kategoriChart"></canvas>
+                </div>
+
+                <div class="card p-5">
+                    <p class="section-title mb-3">Aylara Göre Satışlar</p>
+                    <canvas id="aylikChart" height="130"></canvas>
+                </div>
+
+            </div>
+
+            <!-- EN ÇOK SATAN ÜRÜNLER -->
+            <div class="mt-12 w-full">
+
+                <p class="section-title mb-4 text-lg font-semibold">En Çok Satan Ürünler</p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+
+                    <div class="card p-5 overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead class="border-b text-slate-500">
+                                <tr>
+                                    <th class="py-2 text-left">Ürün</th>
+                                    <th class="py-2 text-left">Kategori</th>
+                                    <th class="py-2 text-right">Satış Adedi</th>
+                                    <th class="py-2 text-right">Toplam Gelir (₺)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bestProductsBody" class="text-slate-700"></tbody>
+                        </table>
+                    </div>
+
+                    <div class="card p-5 flex justify-center items-center">
+                        <div class="w-[300px] h-[300px]">
+                            <canvas id="bestProductsChart"></canvas>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="/js/dashboard.js"></script>
+
+</body>
+</html>

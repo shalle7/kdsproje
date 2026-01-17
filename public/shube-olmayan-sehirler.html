@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <title>ModaTrend – Şubesi Olmayan Şehirler TOPSIS</title>
+
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <link rel="stylesheet" href="./css/sidebar.css">
+</head>
+
+<body class="bg-slate-100 min-h-screen font-sans text-slate-900">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-title">ModaTrend KDS</div>
+
+        <nav class="mt-4 space-y-1 px-2 text-sm">
+            <a href="/dashboard.html" class="menu-item">📊 Dashboard</a>
+            <a href="/sehir.html" class="menu-item">🏙 Şehir Skorları</a>
+            <a href="/sube-olmayan-sehirler.html" class="menu-item active">🏙 Şubesi Olmayan Şehirler</a>
+            <a href="/topsis.html" class="menu-item">📌 İlçe Skor Sıralaması</a>
+            <a href="/veri.html" class="menu-item">🗂 Veri Seti</a>
+            <a class="menu-item disabled">⚙ Ayarlar (Yakında)</a>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="ml-56 p-6 max-w-6xl">
+
+        <!-- HEADER -->
+        <header class="mb-6">
+            <p class="text-xs uppercase tracking-[0.25em] text-slate-400">MODATREND</p>
+            <h1 class="text-xl md:text-2xl font-semibold text-slate-800">
+                Şubesi Olmayan Şehirler – TOPSIS Analizi
+            </h1>
+            <p class="text-xs md:text-sm text-slate-500">
+                Henüz şube açılmamış şehirlerin TOPSIS skorlarına göre analizi ve karşılaştırılması.
+            </p>
+        </header>
+
+        <!-- TABLE + DONUT -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-2">
+
+            <!-- TABLO -->
+            <div class="card p-4">
+                <h2 class="text-sm font-semibold text-slate-800">Şehir Sıralaması</h2>
+                <p class="text-xs text-slate-500">Yüksek skordan düşük skora</p>
+
+                <div class="relative -mx-4 mt-3">
+                    <div class="max-h-80 overflow-y-auto custom-scroll px-4">
+                        <table class="w-full text-xs">
+                            <thead class="sticky top-0 bg-white border-b border-slate-100">
+                                <tr class="text-slate-400 text-[11px]">
+                                    <th class="text-left py-2 w-10">Sıra</th>
+                                    <th class="text-left py-2">Şehir</th>
+                                    <th class="text-right py-2 w-20">Skor</th>
+                                </tr>
+                            </thead>
+                            <tbody id="olmayan-table-body" class="text-[11px]"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DONUT GRAFİĞİ -->
+            <div class="card p-4 lg:col-span-2 flex flex-col items-center">
+                <h2 class="text-sm font-semibold text-slate-800 mb-3 self-start">
+                    Şehir Skor Dağılımı
+                </h2>
+
+                <!-- Boyutu kontrol eden container -->
+                <div class="w-[420px] h-[420px]">
+                    <canvas id="olmayan-chart"></canvas>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- SAYFAYA ÖZEL JS -->
+    <script src="/js/olmayan-sehirler.js"></script>
+</body>
+</html>

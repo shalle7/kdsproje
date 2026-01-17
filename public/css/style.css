@@ -1,0 +1,152 @@
+/* GENEL AYARLAR */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f2f4f8;
+    display: flex;
+}
+
+/* -------------------------- */
+/* SOL MENU (SIDEBAR) */
+/* -------------------------- */
+.sidebar {
+    width: 230px;
+    height: 100vh;
+    background: #0a73d8;
+    color: white;
+    padding: 25px 15px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    box-shadow: 3px 0 8px rgba(0,0,0,0.1);
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 22px;
+}
+
+.sidebar a {
+    display: block;
+    padding: 12px 15px;
+    margin: 8px 0;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+.sidebar a:hover {
+    background: rgba(255, 255, 255, 0.35);
+    transform: translateX(5px);
+}
+
+/* -------------------------- */
+/* ANA İÇERİK */
+/* -------------------------- */
+.content {
+    margin-left: 260px;
+    padding: 30px;
+    width: calc(100% - 260px);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #0a3d62;
+}
+
+/* -------------------------- */
+/* KART LİSTESİ */
+/* -------------------------- */
+#cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+}
+
+/* -------------------------- */
+/* KART TASARIMI */
+/* -------------------------- */
+.card {
+    width: 220px;
+    padding: 25px;
+    background: white;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.rank {
+    display: block;
+    font-size: 22px;
+    font-weight: bold;
+    color: #0a73d8;
+    margin-bottom: 10px;
+}
+
+.card h2 {
+    margin: 5px 0;
+    color: #222;
+}
+
+.card p {
+    margin: 5px 0;
+    font-size: 18px;
+    color: #444;
+}
+
+/* --- LAYOUT DÜZELTME --- */
+.content {
+    margin-left: 260px;   /* Sidebar genişliği kadar boşluk aç */
+    padding: 30px;
+    width: calc(100% - 260px);
+}
+
+/* Kartlar yan yana gelsin */
+#cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.card {
+    width: 250px;
+}
+
+/* ============================================================
+   🔥 TAM GENİŞLİK GRAFİK – PROFESYONEL DASHBOARD TASARIMI 🔥
+   (Grafiğin tüm ekranı kaplaması için stil)
+   ============================================================ */
+
+.grafik-full {
+    width: 100%;
+    height: 420px;                 /* Büyük grafik yüksekliği */
+    background-color: #0d0d0d;     /* Koyu premium arka plan */
+    border-radius: 14px;           /* Yumuşak köşe */
+    padding: 25px;                 /* İç boşluk */
+    box-shadow: 0 6px 25px rgba(0,0,0,0.55);  /* Glow efekt */
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.grafik-full canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Grafik eksen yazılarının görünürlüğünü artırma */
+.grafik-full .chartjs-render-monitor {
+    color: #fff !important;
+}

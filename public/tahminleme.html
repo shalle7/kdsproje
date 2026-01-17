@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>ModaTrend – Aylık Satış Tahmini</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="/css/sidebar.css">
+
+    <style>
+        body {
+            background-color: #f1f5f9;
+        }
+
+        #content-wrapper {
+            margin-left: 230px;
+            padding: 30px;
+        }
+
+        .mini-card {
+            background: #0f172a;
+            color: white;
+            padding: 22px;
+            border-radius: 12px;
+            width: 260px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.35);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 15px;
+        }
+
+        .icon { font-size: 34px; }
+        .value { font-size: 24px; font-weight: bold; }
+        .label { opacity: 0.8; font-size: 13px; }
+
+        /* ✅ SADECE BURASI DEĞİŞTİ */
+        .graph-container {
+            margin-top: 25px;
+            background: #ffffff;          /* ❗ BEYAZ */
+            border-radius: 14px;
+            padding: 25px;
+            height: 450px;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12); /* daha soft */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-title">ModaTrend KDS</div>
+
+        <nav class="mt-4 space-y-1 px-2 text-sm">
+            <a href="/dashboard.html" class="menu-item">Dashboard</a>
+            <a href="/sehir.html" class="menu-item">Şehir Skorları</a>
+            <a href="/topsis.html" class="menu-item">İlçe Skor Sıralaması</a>
+            <a href="/tahminleme.html" class="menu-item active">Tahminleme</a>
+        </nav>
+    </aside>
+
+    <!-- İçerik -->
+    <div id="content-wrapper">
+
+        <h1 class="text-3xl font-bold text-[#0f3556] mb-6">
+            Aylık Satış Tahmini
+        </h1>
+
+        <div class="flex gap-10">
+
+            <!-- SOL FORM -->
+            <div class="bg-white p-6 rounded-xl shadow-md w-[720px]">
+
+                <h2 class="text-xl font-bold text-[#0f3556] mb-4">
+                    2026 Yılı Satış Tahmini Oluştur
+                </h2>
+
+                <div class="grid grid-cols-2 gap-5">
+
+                    <div>
+                        <label class="font-semibold">Şehir Seç</label>
+                        <select id="sehirSelect" class="w-full p-3 mt-1 border rounded-lg">
+                            <option value="">Şehir yükleniyor...</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="font-semibold">Senaryo Etkisi (%)</label>
+                        <select id="senaryoYuzde" class="w-full p-3 mt-1 border rounded-lg">
+                            <option value="-20">-20% (Çok Kötümser)</option>
+                            <option value="-10">-10% (Kötümser)</option>
+                            <option value="0" selected>0% (Normal)</option>
+                            <option value="10">+10% (İyimser)</option>
+                            <option value="20">+20% (Çok İyimser)</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <button onclick="hesapla2026()"
+                        class="mt-5 w-full bg-[#0f3556] text-white py-3 rounded-lg hover:bg-[#132f4a]">
+                    2026 Tahmin Oluştur
+                </button>
+
+                <h3 class="text-lg font-bold mt-6 mb-2">
+                    2026 Aylık % Değişim (2025'e Göre)
+                </h3>
+
+                <table id="oranTable" class="w-full text-sm border">
+                    <tr class="bg-gray-100">
+                        <th class="p-2">Ay</th>
+                        <th class="p-2">% Değişim</th>
+                    </tr>
+                </table>
+
+            </div>
+
+            <!-- SAĞ KARTLAR -->
+            <div>
+                <div class="mini-card">
+                    <div class="icon">🛒</div>
+                    <div>
+                        <div class="value" id="adetValue">--</div>
+                        <div class="label">Yıllık Tahmini Satış (2026)</div>
+                    </div>
+                </div>
+
+                <div class="mini-card">
+                    <div class="icon">💰</div>
+                    <div>
+                        <div class="value" id="gelirValue">--</div>
+                        <div class="label">Tahmini Yıllık Gelir</div>
+                    </div>
+                </div>
+
+                <div class="mini-card">
+                    <div class="icon">📦</div>
+                    <div>
+                        <div class="value" id="stokValue">--</div>
+                        <div class="label">Önerilen Maks. Aylık Stok (Adet)</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ✅ ARTIK BEYAZ VE OKUNAKLI -->
+        <div class="graph-container mt-8">
+            <canvas id="satışTahminGrafik"></canvas>
+        </div>
+
+    </div>
+
+    <script src="/js/tahminleme.js"></script>
+
+</body>
+</html>

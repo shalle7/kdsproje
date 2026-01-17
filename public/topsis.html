@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>ModaTrend – İlçe TOPSIS Skor Sıralaması</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <link rel="stylesheet" href="./css/sidebar.css">
+
+    <style>
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen font-sans text-slate-900">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-title">ModaTrend KDS</div>
+
+        <nav class="mt-4 space-y-1 px-2 text-sm">
+            <a href="/dashboard.html" class="menu-item">Dashboard</a>
+            <a href="/sehir.html" class="menu-item">Şehir Skorları</a>
+            <a href="/topsis.html" class="menu-item active">İlçe Skor Sıralaması</a>
+            <a href="/tahminleme.html" class="menu-item">Tahminleme</a>
+        </nav>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="ml-56 p-6 max-w-screen-xl">
+
+        <!-- HEADER (SADECE BURASI DEĞİŞTİ) -->
+        <header class="mb-6">
+
+            <p class="text-base uppercase tracking-[0.4em] font-bold
+                      bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500
+                      bg-clip-text text-transparent">
+                MODATREND
+            </p>
+
+            <h1 class="text-xl md:text-2xl font-semibold text-slate-800 mt-1">
+                İlçe TOPSIS Skor Sıralaması
+            </h1>
+
+            <p class="text-xs md:text-sm text-slate-500">
+                Tüm ilçeler için TOPSIS skorları, tek şehir ve iki şehir karşılaştırma modları.
+            </p>
+
+        </header>
+
+        <!-- ✔ ÜST DROPDOWN (ŞEHİR SEÇİN) -->
+        <section class="mb-6 grid grid-cols-1 lg:grid-cols-1 gap-4">
+            <div class="card">
+                <label class="block text-xs text-slate-500 mb-1">
+                    Şehir Seçin (Tablo & Ana Grafik)
+                </label>
+                <select id="sehirSelect" class="w-full border rounded px-3 py-2 text-sm">
+                    <option value="" selected disabled>Şehir seçin</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- TABLO + GRAFİK -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+            <div class="card">
+                <h2 class="text-sm font-semibold text-slate-800">
+                    TOPSIS İlçe Sıralaması
+                </h2>
+                <p class="text-xs text-slate-500 mb-2">
+                    Yüksekten düşüğe sıralı liste
+                </p>
+
+                <div class="max-h-80 overflow-y-auto custom-scroll px-4">
+                    <table class="w-full text-xs">
+                        <thead class="sticky top-0 bg-white border-b border-slate-100">
+                            <tr class="text-slate-400 text-[11px]">
+                                <th class="text-left py-2">Sıra</th>
+                                <th class="text-left py-2">İlçe</th>
+                                <th class="text-right py-2">Skor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="topsis-body" class="text-[12px]"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="text-sm font-semibold text-slate-800 mb-2">
+                    İlçe Skor Grafiği
+                </h2>
+                <div class="w-full h-80">
+                    <canvas id="ilceChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- KARŞILAŞTIRMA -->
+        <section class="card">
+            <h2 class="text-sm font-semibold text-slate-800 mb-3">
+                İki Şehri Karşılaştırın
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label class="block text-xs text-slate-500 mb-1">
+                        Karşılaştırma – Şehir 1
+                    </label>
+                    <select id="cmpSehir1" class="w-full border rounded px-3 py-2 text-sm">
+                        <option value="" selected disabled>Şehir seçin</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs text-slate-500 mb-1">
+                        Karşılaştırma – Şehir 2
+                    </label>
+                    <select id="cmpSehir2" class="w-full border rounded px-3 py-2 text-sm">
+                        <option value="" selected disabled>Şehir seçin</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="w-full h-80">
+                <canvas id="cmpChart"></canvas>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="/js/topsis.js"></script>
+</body>
+</html>

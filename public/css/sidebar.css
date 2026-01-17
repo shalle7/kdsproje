@@ -1,0 +1,67 @@
+/* === SIDEBAR === */
+.sidebar {
+    width: 230px;
+    height: 100vh;
+    background: #0f172a;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+}
+
+/* Başlık */
+.sidebar-title {
+    font-size: 18px;
+    color: #34d399;
+    font-weight: 700;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #1e293b;
+    padding-bottom: 10px;
+}
+
+/* Menü */
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #cbd5e1;
+    font-size: 15px;
+    padding: 10px 12px;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    transition: 0.2s ease;
+}
+
+/* Hover */
+.menu-item:hover {
+    background: #1e293b;
+    color: #34d399;
+}
+
+/* Aktif sayfa */
+.menu-item.active {
+    background: #065f46;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* Disabled */
+.menu-item.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+/* Sidebar’ın başka dosyalar tarafından bozulmasını tamamen engeller */
+aside.sidebar {
+    background-color: #0f172a !important;   /* Slate-900 */
+    color: #fff !important;
+}
+aside.sidebar .menu-item {
+    background-color: transparent !important;
+    color: #cbd5e1 !important;
+}
+aside.sidebar .menu-item.active {
+    background-color: #0f766e !important; /* yeşilimsi seçili buton */
+    color: #fff !important;
+}
